@@ -1,3 +1,5 @@
+This is my final project for the course [CS50’s Web Programming with Python and JavaScript](https://cs50.harvard.edu/web/2020/).
+
 # PixelPictures
 
 PixelPictures is a web application developed with Django, that lets users create pixel-art pictures.  
@@ -5,6 +7,8 @@ The main purpose of the application is to simplify the generation of pixelated i
 It can also be a place to find inspiration by navigating the publicly available pictures created by users.
 
 The particularity of this application is that not only it allows to create a pixelated picture from scratch, but it also allows to upload an image file, choose desired height, width, and colors, and start drawing from a pre-drawn pixelated picture.
+
+Video demonstration of the project: https://youtu.be/gsT8HaNrbc4.
 
 ## Example:
 Uploaded image            |  Converted and adjusted image
