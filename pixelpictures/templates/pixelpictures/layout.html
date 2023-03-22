@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}PixelPictures{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link href="{% static 'pixelpictures/styles.css' %}" rel="stylesheet">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <link rel="icon" type="image/x-icon" href="{% static 'pixelpictures/logo.png' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        {% block script %} 
+        {% endblock %}
+    </head>
+    <body>
+        <ul class="nav nav-justified">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Homepage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create' %}">Create</a>
+            </li>
+            {% if user.is_authenticated %} 
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_pictures' %}">Your Pictures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Log in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+        <main id="main">
+            {% block body %} 
+            {% endblock %} 
+        </main>
+    </body>

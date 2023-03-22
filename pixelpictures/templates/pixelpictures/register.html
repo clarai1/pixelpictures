@@ -1,0 +1,63 @@
+{% extends "pixelpictures/layout.html" %} 
+
+{% block body %} 
+
+    <h1>Create an account</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form  class="form-login" action="{% url 'register' %}" method="post">
+        {% csrf_token %} 
+
+        <div class="form-group">
+            
+            {{ form.username.label }}
+            {{ form.username }}
+            {% if form.errors.username %}
+                {{ form.errors.username }}
+            {% else %} 
+                <br>
+            {% endif %}
+
+            {{ form.email.label }}
+            {{ form.email }}
+            {% if form.errors.email %}
+                {{ form.errors.email }}
+            {% else %} 
+                <br>
+            {% endif %}
+
+            {{ form.password1.label }}
+            {{ form.password1 }}
+            {% if form.errors.password1 %}
+                {{ form.errors.password1 }}
+            {% else %} 
+                <br>
+            {% endif %}
+
+            {{ form.password2.label }}
+            {{ form.password2 }}
+            {% if form.errors.password2 %}
+                {{ form.errors.password2 }}
+            {% else %} 
+                <br>
+            {% endif %}
+
+        </div>
+        <input class="btn btn-success" type="submit" value="Create account">
+        <div>
+            Already have an account? <a href="{% url 'login' %}">Log in!</a>
+        </div>
+    </form>
+
+    <script>
+        document.querySelectorAll('.form-group input').forEach(input => {
+            input.classList.add('form-control');
+        })
+    </script>
+
+{% endblock %}

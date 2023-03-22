@@ -1,0 +1,118 @@
+{% extends "pixelpictures/layout.html" %} 
+{% load static %}
+
+{% block script %} 
+    <script src="{% static '/pixelpictures/options_create.js' %}"></script>
+    <script src="{% static '/pixelpictures/drawing.js' %}"></script>
+    <script src="{% static '/pixelpictures/palette.js' %}"></script>
+    <script src="{% static '/pixelpictures/utils.js' %}"></script>
+    <script src="{% static '/pixelpictures/to_pixels.js' %}"></script>
+{% endblock %}
+
+{% block body %} 
+    <!-- csrf token for fetch requests in js files-->
+    {% csrf_token %}
+    
+    <h1>Create a new PixelPicture</h1>
+
+    <div class="top-options" id="save" style="{% if picture %}display: block;{% endif %}">
+        <button id="save-image" class="btn btn-success">Save Picture</button>
+    </div>
+
+    <div class="options" {% if picture %}style="display: none;"{% endif %} style="border:none;">
+        <h5>Initial settings</h5>
+        <div>
+            <label for="height">Height:</label><br>
+            <input type="number" class="form-control" name="height" min="1">
+        </div>
+        <div>  
+            <label>Width:</label><br>
+            <input type="number" class="form-control" name="width" min="1">
+        </div>
+    
+        <form method='post' enctype="multipart/form-data"> 
+            <label for="img">Upload an image:</label><br>
+            <input type="file" class="form-control" name="img" accept="image/*">
+        </form>
+
+        <!-- When start drawing is submitted, if there is a picture, js sends a fetch request to python, that returns create.html with picture.-->
+        <button id="start-drawing" class="btn btn-success">Start drawing</button>
+    </div>
+
+    <hr>
+
+    <div id="options-palette" class="options">
+        <h5>Palette</h5>
+        <div>
+            <label>Current color:</label><br>
+            <button id="current-color"></button>
+        </div>
+        <div>
+            <label for="color">Pick a color:</label><br>
+            <input type="color" id="color">
+        </div>
+
+        <button class="add-color btn btn-secondary">Add</button>
+        <button class="remove-color btn btn-secondary" onclick="remove_color_button()">Remove</button>
+
+        <div id="colors-palette">
+            {% for color in picture.palette %}
+                <button style="background-color: rgb({{ color.0 }}, {{ color.1 }}, {{ color.2 }})"></button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="sample-image">
+        <b>Change size of table:</b>
+        <input type="range" class="form-range" min="5" max="25" step="1" value='15' onchange="set_size_cells(event)">
+        <div class="alert alert-info" role="alert">
+            Choose colors to add to the palette by clicking on the image or selecting them from palette.
+        </div>
+    </div>
+
+    <div id="create-image" {% if picture %}style="display: block;"{% endif %}>
+        <b>Change size of table:</b>
+        <input type="range" class="form-range" min="5" max="25" step="1" value='15' onchange="set_size_cells(event)">
+        <!-- If we are in modify -->
+        {% if picture %}
+
+            <table data-key="{{ picture.pk }}">
+                {% for row in picture.image %} 
+                    <tr>
+                        {% for cell in row %} 
+                            <td data-row="{{ forloop.parentloop.counter0}}" data-col="{{ forloop.counter0 }}" style="background-color: rgb({{ cell.0 }}, {{ cell.1 }}, {{ cell.2 }})"></td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            
+        {% endif %}
+
+    </div>
+
+    <div class="options" id="public-options">
+        <h5>Sharing options</h5>
+
+        <div>
+            <label>Picture status:</label><br>
+            <button class="btn btn-secondary" id="public">{% if picture.public %}Public{% else %}Private{% endif %}</button>
+        </div>
+
+        <div id="tags-options">
+            <label>Add tags describing the picture:</label><br>
+            <input type="text" id="tag" class="form-control" placeholder="New Tag">
+            <button class="btn btn-secondary" onclick="add_tag()">Add tag</button>
+        </div>
+        
+        <div id="tags">
+            <label>Tags:</label> <br>
+            <div id="all-tags">
+                {% for row in picture.tags.all %}
+                    <span><button>x</button><span>{{ row.tag }}</span></span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

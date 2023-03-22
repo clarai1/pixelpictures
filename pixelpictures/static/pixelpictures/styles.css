@@ -1,0 +1,272 @@
+main {
+    margin: 30px;
+}
+
+.link-button {
+    color: white;
+    text-decoration: none;
+}
+
+h1 {
+    color: green;
+    margin-bottom: 50px;
+}
+
+/* Login and register */
+.form-login {
+    margin: auto;
+    max-width: 400px;
+}
+
+/* Nav-bar */ 
+.nav {
+    background-color: #198754;
+}
+
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+/* Homepage */ 
+
+#search-bar {
+    width: 60%;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    min-width: 300px;
+}
+
+.all-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.all-pictures img {
+    border: 1px solid black;
+    flex-grow: 1;
+    margin: 10px;
+    height: 300px;
+    
+}
+
+.form-group ul {
+    list-style-type: none;
+    list-style: none;
+    padding-left: 0;
+    color: red;
+}
+
+.page-navigation {
+    margin-top: 10px;
+    width: max-content;
+    margin: auto;
+}
+
+.page-link {
+    color: #198754;
+}
+
+.page-link:hover {
+    color: black;
+}
+
+.page-item.active .page-link {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+/* Create/modify */
+
+h1 {
+    text-align: center;
+}
+
+#save {
+    display: none;
+}
+
+.top-options {
+    margin: 30px;
+    text-align: right;
+}
+
+.options {
+    border: 2px solid #198754;
+    border-radius: 5px;
+    margin: 30px;
+    padding: 10px;
+    height: max-content;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: self-end;
+    justify-content: space-around;
+}
+
+.options .submit-options {
+    flex-grow: 1; 
+    text-align: right;
+    align-self: flex-end;
+}
+
+.options h5 {
+    width: 100%;
+    color: green;
+    text-align: left;
+}
+
+.options input[type=number] {
+    width: 70px;
+}
+
+.options input[type=text] {
+    display: inline;
+    width: 160px;
+}
+
+.options > * {
+    text-align: center;
+    margin: 10px;
+}
+
+.options form {
+    flex: 1;
+    min-width: 200px;
+}
+
+.options button {
+    margin-left: 10px;
+    margin-right: 10px;
+    max-height: 40px;
+}
+
+.options label {
+    font-weight: bold;
+}
+
+#public-options ul {
+    width: 100%;
+    list-style-type: none;
+}
+
+#public-options #tags #all-tags {
+    text-align: left;
+}
+
+#public-options #tags #all-tags span {
+    display: inline-block;
+}
+
+#public-options #tags #all-tags button {
+    border: none;
+    color: red;
+    background-color: inherit;
+    margin-right: 0px;
+}
+
+#create-image, #sample-image {
+    margin: 30px;
+    overflow-x: auto;
+    overflow-y: auto;
+    display: none;
+}
+
+#create-image table, #view-image table, #sample-image table{
+    border: 2px solid black;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: auto;
+    min-width: max-content;
+}
+
+#create-image table td, #sample-image table td{
+    height: 15px;
+    width: 15px;
+    border: 1px solid black;
+    background-color: rgb(255,255,255);
+}
+
+.form-range::-webkit-slider-thumb {
+    background-color: white;
+    border: 2px solid black;
+}
+.form-range::-webkit-slider-runnable-track {
+    background-color:#198754;
+}
+
+#colors-palette button, #current-color, input[type=color]{
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    margin-bottom: 0;
+}
+
+#colors-palette, #tags {
+    margin-left: 30px;
+    padding: 10px;
+    min-height: 73px;
+    width: calc(100% - 480px);
+    text-align: left;
+    border-left: 1px solid gray;
+}
+
+@media (max-width: 899px) {
+
+    #colors-palette, #tags {
+        padding: 10px;
+        width: 100%;
+        display: block;
+        border-left: none;
+        border-top: 1px solid gray;
+        margin-left: 0;
+        padding-left: 0;
+        margin-top: 30px;
+    }
+
+}
+
+/* View picture */
+
+#view-image {
+    text-align: center;
+    overflow-x: auto;
+}
+
+#view-image img {
+    border: 1px solid black;
+}
+
+#grid-options input[type=number] {
+    width: 70px;
+}
+
+#size-range {
+    width: 100%;
+}
+
+/* Profile */
+.pictures-folder {
+    margin: 30px;
+    border: 2px solid #198754;
+    border-radius: 5px;
+}
+
+.pictures-folder h5 {
+    color: green;
+}
+
+.pictures-folder .all-pictures {
+    overflow-y: auto;
+    height: 25vh;
+}
+
+.pictures-folder img {
+    height: 10vh;
+}

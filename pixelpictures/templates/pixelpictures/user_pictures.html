@@ -1,0 +1,27 @@
+{% extends "pixelpictures/layout.html" %} 
+{% load static %}
+{% load my_filters %}
+
+{% block body %} 
+
+    <h1>{{ request.user.username }}'s Pictures</h1>
+
+    <div id="private-pictures" class="pictures-folder">
+        <h5>Your private Pictures</h5>
+        <div class="all-pictures"> 
+            {% for picture in private %} 
+                <a href="{% url 'view_picture' picture.pk %}"><img src="{% static '/pixelpictures/pictures/' %}{{ picture.pk }}_{{ picture.timestamp | timestamp}}.png"></a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="public-pictures" class="pictures-folder">
+        <h5>Your public Pictures</h5>
+        <div class="all-pictures"> 
+            {% for picture in public %} 
+                <a href="{% url 'view_picture' picture.pk %}"><img src="{% static '/pixelpictures/pictures/' %}{{ picture.pk }}_{{ picture.timestamp | timestamp }}.png"></a>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "pixelpictures/layout.html" %} 
+
+{% block body %} 
+
+    <h1>Login</h1>
+    <form class="form-login" action="{% url 'login' %}" method="post">
+        {% csrf_token %} 
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username">
+            <br>
+
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password">
+            {% if message %} 
+                <ul>{{ message }}</ul>
+            {% else %} 
+                <br>
+            {% endif %}
+            <input type="submit" class="btn btn-success" value="Log in">
+        </div>
+        <div>
+            Don't have an account? <a href="{% url 'register' %}">Create an account!</a>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "pixelpictures/layout.html" %} 
+{% load static %}
+{% load my_filters %}
+
+{% block script %} 
+    <script src="{% static '/pixelpictures/view_picture.js' %}"></script>
+    <script src="{% static '/pixelpictures/utils.js' %}"></script>
+{% endblock %}
+
+{% block body %} 
+    <!-- csrf token for fetch requests in js files-->
+    {% csrf_token %}
+    
+    <h1>Picture by {{ picture.user }}</h1>
+
+    <div class="top-options">
+        {% if request.user == picture.user %}
+            <button class="btn btn-secondary" onclick="location.href='{% url 'modify_picture' picture.pk%}'">Modify</button>
+            <button class="btn btn-secondary" onclick="delete_picture({{ picture.pk }})">Delete</button>
+        {% endif %}
+        <button class="btn btn-secondary"><a class="link-button" id="download" href="{% static '/pixelpictures/pictures/' %}{{ picture.pk }}_{{ picture.timestamp | timestamp }}.png" download="{{ picture.pk }}">Download</a></button>
+    </div>
+
+    <div class="options">
+        <h5>Add a grid:</h5>
+        <div>
+            <label>Starting row:</label>
+            <input type="number" class="form-control" id="start-row" value='1'>
+        </div>
+        <div>
+            <label>Row direction:</label> <br>
+            <input type="radio" name="row-direction" value="tb" checked>
+            <label>Top-bottom</label><br>
+            <input type="radio" name="row-direction" value="bt">
+            <label>Bottom-top</label><br>
+        </div>
+        <div>  
+            <label>Starting column:</label>
+            <input type="number" class="form-control" id="start-col" value='1'>
+        </div>
+        <div>
+            <label>Column direction:</label> <br>
+            <input type="radio" name="col-direction" value="lr" checked>
+            <label>Left-right</label><br>
+            <input type="radio" name="col-direction" value="rl">
+            <label>Right-left</label><br>
+        </div>
+
+        <div>
+            <label>Step:</label>
+            <input type="number" class="form-control" id="step" value='1' min="1">
+        </div>
+
+        <div>
+            <label for="color">Color of the grid:</label> <br>
+            <input type="color">
+        </div>
+
+        <div class="submit-options">
+            <button class="btn btn-success" onclick="download_view({{ picture.pk }})">Preview</button>
+        </div>
+    </div>
+
+    <div id='size-range'>
+        <b>Change size:</b>
+        <input type="range" class="form-range" min="5" max="25" step="1" value='18' onchange="set_image_size(event, {{ picture.pk }})">
+    </div>
+
+    <div id="view-image">
+        <img id='plain-image' src="{% static '/pixelpictures/pictures/' %}{{ picture.pk }}_{{ picture.timestamp | timestamp }}.png">
+    </div>
+
+{% endblock %}

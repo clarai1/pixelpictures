@@ -1,0 +1,56 @@
+{% extends "pixelpictures/layout.html" %} 
+{% load static %}
+{% load my_filters %}
+
+{% block body %} 
+
+    <h1>PixelPictures</h1>
+
+    <form action="{% url 'index' %}" method="get">
+        <div id="search-bar" class="input-group">
+            <input class="form-control" type="text" placeholder="Search" name="search" value="{{ search_value }}">
+            <button class="btn btn-success"type="submit"><i class="fa fa-search"></i></button>
+        </div>
+        <hr>
+        <div>
+            <b>Sort by:</b>
+            <br>
+            <input onchange="this.form.submit();" type="radio" class="btn-check" name="sort" id="view_input" value="views" {% if sort_value == 'views' %}checked{% endif%}>
+            <label class="btn btn-secondary" for="view_input">Most Popular</label>
+
+            <input onchange="this.form.submit();" type="radio" class="btn-check" name="sort" id="new_input" value="new" {% if sort_value == 'new' %}checked{% endif%}>
+            <label class="btn btn-secondary" for="new_input">Newest</label>
+        </div>
+    </form>
+
+    <div class="all-pictures"> 
+        {% for picture in pictures.object_list %} 
+            <a href="{% url 'view_picture' picture.pk %}"><img src="{% static '/pixelpictures/pictures/' %}{{ picture.pk }}_{{ picture.timestamp | timestamp }}.png"></a>
+        {% endfor %}
+    </div>
+
+    <nav class="page-navigation">
+        <ul class="pagination">
+            {% if pictures.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ pictures.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %} 
+
+            {% if pictures.paginator.num_pages > 1 %}
+                {% for i in pictures.paginator.num_pages|times %} 
+                    <li class="page-item {% if pictures.number == i %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
+            {% if pictures.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ pictures.next_page_number }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+{% endblock %}
